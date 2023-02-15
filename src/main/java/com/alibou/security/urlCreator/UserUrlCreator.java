@@ -25,9 +25,6 @@ public class UserUrlCreator {
                 buyCertificate(requestDTO, id)).withRel("addOrder");
     }
 
-    public Link addUser(UserRequestDto userRequestDto) {
-        return linkTo(methodOn(UserController.class).addUser(userRequestDto)).withRel("addUser");
-    }
 
 
 

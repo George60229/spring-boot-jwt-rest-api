@@ -35,11 +35,8 @@ public class CertificateController {
     public CollectionModel<ResponseCertificateDTO> getCertificateById(@PathVariable(value = "id") int id) {
         List<ResponseCertificateDTO> list = new ArrayList<>();
         list.add(certificateServiceBean.getCertificateById(id));
-
         List<Link> links = new ArrayList<>();
         links.add(certificateUrlCreator.findPopularTag());
-
-
         return CollectionModel.of(list, links);
 
     }
@@ -156,4 +153,7 @@ public class CertificateController {
         }
         return number;
     }
+
+
+
 }

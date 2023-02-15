@@ -2,8 +2,10 @@ package com.alibou.security.dto.response;
 
 
 
+import com.alibou.security.model.Order;
 import com.alibou.security.model.Role;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserInfoResponseDto {
@@ -34,6 +36,15 @@ public class UserInfoResponseDto {
 
     String login;
 
+    private List<Order> orders = new ArrayList<>();
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public int getUserId() {
         return userId;

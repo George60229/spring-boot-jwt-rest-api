@@ -38,20 +38,6 @@ public class UserController {
     }
 
 
-    @PostMapping("/addUser")
-    public CollectionModel<UserInfoResponseDto> addUser(@RequestBody UserRequestDto user) {
-        List<UserInfoResponseDto> list = new ArrayList<>();
-        UserInfoResponseDto userResponseDto = userService.create(user);
-        list.add(userResponseDto);
-        List<Link> links = new ArrayList<>();
-        links.add(userUrlCreator.getAllUsers());
-
-        links.add(userUrlCreator.getUserById(userResponseDto.getUserId()));
-
-        return CollectionModel.of(list, links);
-
-    }
-
     @GetMapping("/getAllUsers/{page}")
     public CollectionModel<UserInfoResponseDto> getAllUsersWithPage(@PathVariable(value = "page") int page) {
         if (page < 0) {
@@ -156,6 +142,20 @@ public class UserController {
         links.add(userUrlCreator.getAllUsers());
 
 
+        return CollectionModel.of(list, links);
+
+    }
+
+    @GetMapping("/richUser")
+    public CollectionModel<UserResponseDto> getRichUser() {
+
+
+        List<UserResponseDto> list = new ArrayList<>();
+
+        list.add(userService.getUserWithMostExpensiveOrder());
+
+        List<Link> links = new ArrayList<>();
+        links.add(userUrlCreator.getAllUsers());
         return CollectionModel.of(list, links);
 
     }

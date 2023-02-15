@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +45,7 @@ public class UserConverter {
     public UserResponseDto convertOneToDTO(User user) {
         UserResponseDto userResponseDTO = new UserResponseDto();
         userResponseDTO.setName(user.getUsername());
+        userResponseDTO.setOrders(user.getOrders());
         return userResponseDTO;
     }
 
@@ -86,6 +86,10 @@ public class UserConverter {
     public UserInfoResponseDto convertOneToInfoDTO(User user) {
         UserInfoResponseDto userResponseDTO = new UserInfoResponseDto();
         userResponseDTO.setEmail(user.getEmail());
+        userResponseDTO.setOrders(user.getOrders());
+        userResponseDTO.setUserId(user.getId());
+        userResponseDTO.setLogin(userResponseDTO.getLogin());
+        userResponseDTO.setSurname(userResponseDTO.getSurname());
         return userResponseDTO;
     }
 

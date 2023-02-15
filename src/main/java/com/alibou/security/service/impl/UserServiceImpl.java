@@ -33,14 +33,12 @@ public class UserServiceImpl implements UserInfoService {
     private UserConverter converter;
 
 
-
     public UserServiceImpl(UserRepository userRepository, CertificateRepository certificateRepository) {
         this.userRepository = userRepository;
         this.certificateRepository = certificateRepository;
 
 
     }
-
 
 
     @Override
@@ -104,8 +102,7 @@ public class UserServiceImpl implements UserInfoService {
 
         }
 
-
-
+        myUser.addOrder(converter.getOrder(giftCertificates));
 
         userRepository.save(myUser);
         Optional<User> responseDto = userRepository.findById(id);
@@ -125,13 +122,21 @@ public class UserServiceImpl implements UserInfoService {
     }
 
 
-
     @Override
     public Page<UserInfoResponseDto> getUserInfo(Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
         return converter.convertToInfo(users);
     }
 
+
+    @Override
+    public UserResponseDto getUserWithMostExpensiveOrder() {
+        List<User> result = userRepository.findExpensiveOrder();
+        result.removeAll(Collections.singletonList(null));
+        List<User> res = result.stream().sorted(Comparator.comparingInt(User::getAllPrice).reversed()).toList();
+        return converter.convertOneToDTO(res.get(0));
+
+    }
 
     @Override
     public UserDetails loadUserByUsername(String login) {
@@ -143,4 +148,6 @@ public class UserServiceImpl implements UserInfoService {
 
         return user;
     }
+
+
 }
